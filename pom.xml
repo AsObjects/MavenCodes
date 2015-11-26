@@ -1,6 +1,6 @@
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
  <!-- http://www.2cto.com/kf/201303/196131.html 不错的文章 -->
+ 
   <modelVersion>4.0.0</modelVersion>
   <groupId>Cys</groupId>
   <artifactId>MavenCodes</artifactId>
@@ -27,10 +27,28 @@
 	        <artifactId>spring-context</artifactId>
 	        <version>3.1.4.RELEASE</version>
 	   </dependency>
-	   
+
 	   <dependency>  
 		    <groupId>org.springframework</groupId>  
 		    <artifactId>spring-web</artifactId>  
+		    <version>3.1.2.RELEASE</version>  
+		</dependency>
+		
+	   <dependency>  
+		    <groupId>org.springframework</groupId>  
+		    <artifactId>spring-aop</artifactId>  
+		    <version>3.1.2.RELEASE</version>  
+		</dependency>
+		
+	   <dependency>  
+		    <groupId>org.springframework</groupId>  
+		    <artifactId>spring-beans</artifactId>  
+		    <version>3.1.2.RELEASE</version>  
+		</dependency>	   
+		
+	   <dependency>  
+		    <groupId>org.springframework</groupId>  
+		    <artifactId>spring-expression</artifactId>  
 		    <version>3.1.2.RELEASE</version>  
 		</dependency>
 		
@@ -64,6 +82,18 @@
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
 			<version>2.3.18</version>
+		</dependency>
+		<!-- quartz -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>1.8.3</version>
+		</dependency>
+		<!-- servlet -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
 		</dependency>
   </dependencies>
 </project>
