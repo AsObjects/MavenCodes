@@ -25,8 +25,7 @@ import org.apache.http.util.EntityUtils;
 
 //4.5.1�� httpClient
 /**
- * @author ����ɽ
- * ʹ�ò��裺
+ * @author 
  * 1 创建HttpClient对象
  * 2 创建请求方法的实例，并指定请求URL。如果需要发送GET请求，创建HttpGet对象；如果需要发送POST请求，创建HttpPost对象。
  * 3 如果需要发送请求参数，可调用HttpGet、HttpPost共同的setParams(HetpParams params)方法来添加请求参数；

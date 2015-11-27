@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -22,15 +21,15 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class TieBaRequestService {
-	
+public class TieBaMdjNuRequestService {
+
 	private String firstRequest="http://www.baidu.com";
 	
 	private String sencendRequest="https://passport.baidu.com/v2/api/?getapi&class=login&tpl=pp&tangram=true";
 	
 	private String ThreadRequestLogin="https://passport.baidu.com/v2/api/?login";
 	
-	private String fourRequestJava="http://tieba.baidu.com/f?kw=java";
+	private String fourRequestMdjNu="http://tieba.baidu.com/f?kw=牡丹江师范学院";
 	
 	private CloseableHttpClient httpClient=HttpClients.createDefault();
 	
@@ -41,6 +40,7 @@ public class TieBaRequestService {
 	private String tbs="";
 	
 	private String str="";
+	
 	/*
 	 * 向百度发送请求
 	 */
@@ -69,16 +69,22 @@ public class TieBaRequestService {
 			paramMap.put("verifycode", "");
 			paramMap.put("callback", "parent.bd_pcbs_ajnsn");
 			this.postMessage(ThreadRequestLogin, paramMap);
-			str=this.getMessage(fourRequestJava);
+			str=this.getMessage(fourRequestMdjNu);
 			tbs=str.substring(str.indexOf("PageData.tbs = \"")+16,str.indexOf("\";PageData.forum"));
 			System.out.println(" tbs:   "+tbs);
 			Document doc=Jsoup.parse(str);
 			Elements element=doc.getElementsByClass("t_con");
 			for(int i=0 ;i<element.size();i++){
-				int num=Integer.parseInt(element.get(i).
-						getElementsByClass("threadlist_li_left").get(0).
-						getElementsByClass("threadlist_rep_num").get(0).
-						text());
+				int num=0;
+				try{
+					num=Integer.parseInt(element.get(i).
+							getElementsByClass("threadlist_li_left").get(0).
+							getElementsByClass("threadlist_rep_num").get(0).
+							text());
+				}catch(Exception e){
+					continue;
+				}
+				
 				if(num ==0){
 					System.out.println("帖子名："+element.get(i).getElementsByClass("threadlist_li_right").get(0).
 							                                  getElementsByClass("threadlist_lz").get(0).
@@ -99,17 +105,17 @@ public class TieBaRequestService {
 					String tid=href.substring(href.lastIndexOf("/")+1);
 					//post发帖
 					Map<String,String> paramMaps=new HashMap<String, String>();
-					paramMaps.put("kw", "java");
+					paramMaps.put("kw", "牡丹江师范学院");
 					paramMaps.put("ie", "utf-8");
-					paramMaps.put("fid", "693735");
+					paramMaps.put("fid", "156696");
 					paramMaps.put("tid", tid);
 					paramMaps.put("floor_num", "1");
 					paramMaps.put("rich_text", "1");
-					paramMaps.put("content", "吊炸天");
+					paramMaps.put("content", "专业二楼！");
 					paramMaps.put("_type_", "reply");
 					paramMaps.put("tbs", tbs);
 					this.postMessage("http://tieba.baidu.com/f/commit/post/add", paramMaps);
-					str=this.getMessage(fourRequestJava);
+					str=this.getMessage(fourRequestMdjNu);
 					tbs=str.substring(str.indexOf("PageData.tbs = \"")+16,str.indexOf("\";PageData.forum"));
 				}
 			}
@@ -125,60 +131,59 @@ public class TieBaRequestService {
 			}
 		}
 	}
-	
-	public String getMessage(String url) throws ClientProtocolException, IOException{
-		HttpGet get=new HttpGet(url);
-		RequestConfig rc=RequestConfig.custom().setConnectTimeout(10000).setSocketTimeout(10000).build();
-		get.setConfig(rc);
-		get.setHeader("Content-Type","charset=UTF-8");
-		
-		response=httpClient.execute(get);
-		entity = response.getEntity();
-		System.out.println("消息头 : [ "+response.getStatusLine()+" ];请求地址:["+url+"]");
-		/*Header [] header=response.getAllHeaders();
-		System.out.println("==================解析开始================");
-		for(int i=0;header.length>i;i++){
-			System.out.println(header[i]);
-		}
-		System.out.println("==================解析结束================");*/
-		return EntityUtils.toString(entity);
-	}
-	
-	public void postMessage(String url,Map<String,String>map) throws Exception{
-		 HttpPost post = new HttpPost(url);
-		  RequestConfig config = RequestConfig.custom()
-		    .setConnectionRequestTimeout(10000).setConnectTimeout(10000)
-		    .setSocketTimeout(10000).build();
-		  CloseableHttpResponse response = null;
-		   List formparams = new ArrayList();
-		   BasicNameValuePair bnv=null;
-		   for(String key:map.keySet()){
-			   bnv=new BasicNameValuePair(key, map.get(key));
-			   formparams.add(bnv);
-		   }
-		   post.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
-		   //post.setEntity(new StringEntity("<xml><userName>a</userName></xml>"));
-		   post.setConfig(config);
-		   response = httpClient.execute(post);
-		   HttpEntity entity = response.getEntity();
-		   String html=EntityUtils.toString(entity);
-		   if(html.contains("\"no\":0,\"err_code\":0")){
-	           System.out.println("在java吧成功抢到一个二楼");
-	        }else{
-	        	if(html.indexOf("<!DOCTYPE")<0){
-	        		System.out.println("回帖失败了,错误码信息："+html);	        		
-	        	}
-	        }
-		   System.out.println("消息头 : [ "+response.getStatusLine()+" ];请求地址:["+url+"]");
+		public String getMessage(String url) throws ClientProtocolException, IOException{
+			HttpGet get=new HttpGet(url);
+			RequestConfig rc=RequestConfig.custom().setConnectTimeout(10000).setSocketTimeout(10000).build();
+			get.setConfig(rc);
+			get.setHeader("Content-Type","charset=UTF-8");
+			
+			response=httpClient.execute(get);
+			entity = response.getEntity();
+			System.out.println("消息头 : [ "+response.getStatusLine()+" ];请求地址:["+url+"]");
 			/*Header [] header=response.getAllHeaders();
-			System.out.println("==================开始解析================");
+			System.out.println("==================解析开始================");
 			for(int i=0;header.length>i;i++){
 				System.out.println(header[i]);
 			}
 			System.out.println("==================解析结束================");*/
-	}
-	
-	public static void main(String[] args) {
-		new TieBaRequestService().loginBaiDu();
-	}
+			return EntityUtils.toString(entity);
+		}
+		
+		public void postMessage(String url,Map<String,String>map) throws Exception{
+			 HttpPost post = new HttpPost(url);
+			  RequestConfig config = RequestConfig.custom()
+			    .setConnectionRequestTimeout(10000).setConnectTimeout(10000)
+			    .setSocketTimeout(10000).build();
+			  CloseableHttpResponse response = null;
+			   List formparams = new ArrayList();
+			   BasicNameValuePair bnv=null;
+			   for(String key:map.keySet()){
+				   bnv=new BasicNameValuePair(key, map.get(key));
+				   formparams.add(bnv);
+			   }
+			   post.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
+			   //post.setEntity(new StringEntity("<xml><userName>a</userName></xml>"));
+			   post.setConfig(config);
+			   response = httpClient.execute(post);
+			   HttpEntity entity = response.getEntity();
+			   String html=EntityUtils.toString(entity);
+			   if(html.contains("\"no\":0,\"err_code\":0")){
+		           System.out.println("在java吧成功抢到一个二楼");
+		        }else{
+		        	if(html.indexOf("<!DOCTYPE")<0){
+		        		System.out.println("回帖失败了,错误码信息："+html);	        		
+		        	}
+		        }
+			   System.out.println("消息头 : [ "+response.getStatusLine()+" ];请求地址:["+url+"]");
+				/*Header [] header=response.getAllHeaders();
+				System.out.println("==================开始解析================");
+				for(int i=0;header.length>i;i++){
+					System.out.println(header[i]);
+				}
+				System.out.println("==================解析结束================");*/
+		}
+		
+		public static void main(String[] args) {
+			new TieBaMdjNuRequestService().loginBaiDu();
+		}
 }
