@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import com.sun.tools.internal.ws.processor.model.Response;
+
 //4.5.1�� httpClient
 /**
  * @author 
@@ -37,8 +40,6 @@ import org.apache.http.util.EntityUtils;
  * 6 释放连接。无论执行方法是否成功，都必须释放连接
  */
 public class HttpKit {
-	
-	private static String ThreadRequestLogin="https://passport.baidu.com/v2/api/?login";
 	
 	public static String sendHttpByGetRequest(String []urls , String head){
 		CloseableHttpClient httpClient=HttpClients.createDefault();
@@ -144,4 +145,76 @@ public class HttpKit {
 		  return null;
 	}
 	
+	/*
+	 * 没关闭httpclient的get请求
+	 */
+	public static String getRequest(String url,CloseableHttpClient httpClient) 
+			                                     throws ClientProtocolException, IOException{
+		HttpGet get=new HttpGet(url);
+		RequestConfig rc=RequestConfig.custom().setConnectTimeout(10000).setSocketTimeout(10000).build();
+		get.setConfig(rc);
+		get.setHeader("Content-Type","charset=UTF-8");
+		CloseableHttpResponse response = null;
+		/*Header [] header=response.getAllHeaders();
+		System.out.println("==================解析开始================");
+		for(int i=0;header.length>i;i++){
+			System.out.println(header[i]);
+		}
+		System.out.println("==================解析结束================");*/
+	   String html=null;
+	   try{
+		   response=httpClient.execute(get);
+		   HttpEntity entity = response.getEntity();
+		   html=EntityUtils.toString(entity);			   
+		   System.out.println("消息头 : [ "+response.getStatusLine()+" ];请求地址:["+url+"]");
+	   }finally{
+		   response.close();
+	   }
+		return html;
+	}
+
+	/*
+	 * 没关闭httpclient的post请求
+	 */
+	public static String postRequest(String url,Map<String,String>map,CloseableHttpClient httpClient)
+			                                             throws ClientProtocolException, IOException{
+		 HttpPost post = new HttpPost(url);
+		  RequestConfig config = RequestConfig.custom()
+		    .setConnectionRequestTimeout(10000).setConnectTimeout(10000)
+		    .setSocketTimeout(10000).build();
+		   List formparams = new ArrayList();
+		   BasicNameValuePair bnv=null;
+		   for(String key:map.keySet()){
+			   bnv=new BasicNameValuePair(key, map.get(key));
+			   formparams.add(bnv);
+		   }
+		   post.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
+		   //post.setEntity(new StringEntity("<xml><userName>a</userName></xml>"));
+		   post.setConfig(config);
+		   String html=null;
+		   CloseableHttpResponse response=null;
+		   try{
+			   response= httpClient.execute(post);
+			   HttpEntity entity = response.getEntity();
+			   html=EntityUtils.toString(entity);			   
+			   System.out.println("消息头 : [ "+response.getStatusLine()+" ];请求地址:["+url+"]");
+		   }finally{
+			   response.close();
+		   }
+		   /*if(html.contains("\"no\":0,\"err_code\":0")){
+	           System.out.println("在java吧成功抢到一个二楼");
+	        }else{
+	        	if(html.indexOf("<!DOCTYPE")<0){
+	        		System.out.println("回帖失败了,错误码信息："+html);	        		
+	        	}
+	        }*/
+			/*Header [] header=response.getAllHeaders();
+			System.out.println("==================开始解析================");
+			for(int i=0;header.length>i;i++){
+				System.out.println(header[i]);
+			}
+			System.out.println("==================解析结束================");*/
+		   
+		   return html;
+	}
 }
