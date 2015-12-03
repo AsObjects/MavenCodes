@@ -67,7 +67,7 @@ public class RequestJavaTask extends AbstrctTask {
 					String author=element.get(i).getElementsByClass("threadlist_li_right").get(0).
 			                   					getElementsByClass("threadlist_author").get(0).
 		                   						getElementsByTag("span").get(0).attr("title");
-					System.out.println("href:"+href+",uid:"+uid+",author:"+author);
+					//System.out.println("href:"+href+",uid:"+uid+",author:"+author);
 					//执行get就相当于进帖子
 					HttpKit.getRequest(BaiDuRequestUrl.LOGIN_SPECIFIC_NOTE+href, httpClient);
 					String tid=href.substring(href.lastIndexOf("/")+1);
@@ -76,23 +76,24 @@ public class RequestJavaTask extends AbstrctTask {
 							             TaskUtil.getSendMessageParam("java", "693735", tid, tbs, TaskUtil.getContent()),
 							             httpClient);
 					if(html.contains("\"no\":0,\"err_code\":0")){
-				           System.out.println("在java吧成功抢到一个二楼");
+				           //System.out.println("在java吧成功抢到一个二楼");
 				        }else{
 				        	if(html.indexOf("<!DOCTYPE")<0){
-				        		System.out.println("回帖失败了,错误码信息："+html);	        		
+				        		//System.out.println("回帖失败了,错误码信息："+html);	        		
 				        	}
 				        }
 					str=HttpKit.getRequest(BaiDuRequestUrl.LOGIN_JAVA, httpClient);
 					tbs=str.substring(str.indexOf("PageData.tbs = \"")+16,str.indexOf("\";PageData.forum"));
+					Thread.sleep(1500);
 				}
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 		}finally{
 			try {
 				httpClient.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 	}
@@ -102,7 +103,7 @@ public class RequestJavaTask extends AbstrctTask {
 	public void inin() throws Exception{
 		String jobName = this.getClass().getSimpleName();
 		String jobGroup = this.getClass().getPackage().getName();
-		super.quartz.addScheduleJob(jobName, jobGroup, this, "0 0/10 * * * ?");
+		super.quartz.addScheduleJob(jobName, jobGroup, this, "0 0/3 * * * ?");
 	}
 	
 	@PreDestroy

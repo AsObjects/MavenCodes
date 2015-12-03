@@ -166,7 +166,7 @@ public class HttpKit {
 		   response=httpClient.execute(get);
 		   HttpEntity entity = response.getEntity();
 		   html=EntityUtils.toString(entity);			   
-		   System.out.println("消息头 : [ "+response.getStatusLine()+" ];请求地址:["+url+"]");
+		   //System.out.println("消息头 : [ "+response.getStatusLine()+" ];请求地址:["+url+"]");
 	   }finally{
 		   response.close();
 	   }
@@ -197,7 +197,7 @@ public class HttpKit {
 			   response= httpClient.execute(post);
 			   HttpEntity entity = response.getEntity();
 			   html=EntityUtils.toString(entity);			   
-			   System.out.println("消息头 : [ "+response.getStatusLine()+" ];请求地址:["+url+"]");
+			   //System.out.println("消息头 : [ "+response.getStatusLine()+" ];请求地址:["+url+"]");
 		   }finally{
 			   response.close();
 		   }

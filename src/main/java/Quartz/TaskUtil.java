@@ -66,7 +66,7 @@ public class TaskUtil {
 				"火前留名！！"
 				};
 		int num=r.nextInt(random.length);
-		System.out.println(random[num]+"                   test:"+num);
+		//System.out.println(random[num]+"                   test:"+num);
 		return random[num];
 	}
 	

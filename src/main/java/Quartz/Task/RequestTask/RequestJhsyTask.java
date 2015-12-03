@@ -50,10 +50,10 @@ public class RequestJhsyTask extends AbstrctTask {
 						TaskUtil.getSendMessageParam("镜中花_水中月", "5048102", tid, tbs, TaskUtil.getContent()),
 						httpClient);
 				if(html.contains("\"no\":0,\"err_code\":0")){
-					System.out.println("镜花水月吧水贴成功");
+					//System.out.println("镜花水月吧水贴成功");
 				}else{
 					if(html.indexOf("<!DOCTYPE")<0){
-						System.out.println("回帖失败了,错误码信息："+html);	        		
+						//System.out.println("回帖失败了,错误码信息："+html);	        		
 					}
 				}
 				str=HttpKit.getRequest(BaiDuRequestUrl.LOGIN_JHSY, httpClient);
@@ -61,12 +61,12 @@ public class RequestJhsyTask extends AbstrctTask {
 				Thread.sleep(2000);
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 		}finally{
 			try {
 				httpClient.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 	}
@@ -75,7 +75,7 @@ public class RequestJhsyTask extends AbstrctTask {
 	public void inin() throws Exception{
 		String jobName = this.getClass().getSimpleName();
 		String jobGroup = this.getClass().getPackage().getName();
-        //super.quartz.addScheduleJob(jobName, jobGroup, this, "0 0/1 * * * ?");
+        super.quartz.addScheduleJob(jobName, jobGroup, this, "0 0 19 * * ?");
 	}
 	
 	@PreDestroy
