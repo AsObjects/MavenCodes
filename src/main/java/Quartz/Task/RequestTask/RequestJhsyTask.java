@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import ParamClass.BaiDuRequestUrl;
 import Quartz.AbstrctTask;
 import Quartz.TaskUtil;
+import SystemParam.Properties.SystemParam;
 import Util.HttpKit;
 @Component("requestJhsyTask")
 public class RequestJhsyTask extends AbstrctTask {
@@ -75,7 +76,8 @@ public class RequestJhsyTask extends AbstrctTask {
 	public void inin() throws Exception{
 		String jobName = this.getClass().getSimpleName();
 		String jobGroup = this.getClass().getPackage().getName();
-        super.quartz.addScheduleJob(jobName, jobGroup, this, "0 0 19 * * ?");
+		SystemParam.getProperty("cron_java");
+        super.quartz.addScheduleJob(jobName, jobGroup, this, "0 0 13 * * ?");
 	}
 	
 	@PreDestroy

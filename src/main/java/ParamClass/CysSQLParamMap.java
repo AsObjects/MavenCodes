@@ -1,6 +1,6 @@
 package ParamClass;
 
-public interface CysParamMap {
+public interface CysSQLParamMap {
 	/*
 	 * user相关
 	 */

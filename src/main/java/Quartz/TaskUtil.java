@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import ConfigBean.SpringBeanGetter;
+import SystemParam.IXmlConfig;
+import SystemParam.IXmlConfig.XML_CONF_FIRST_NODE;
+
 /**
  * 任务工具，专门针对任务的工具类
  */
@@ -51,23 +55,18 @@ public class TaskUtil {
 	 * 随机产生不同内容的水贴方法
 	 */
 	public static String getContent(){
+		IXmlConfig conf=SpringBeanGetter.getBeanByClass(IXmlConfig.class);
+		Map str=(Map) conf.getConfig().get(XML_CONF_FIRST_NODE.TieBaLiuYan.name());
+		String []randomStr=new String[str.size()];
+		int i=0;
+		for(Object s:str.keySet()){
+			randomStr[i]=(String) str.get(s);
+			i++;
+		}
 		Random r=new Random();
-		String []random={
-				"伟大的度娘啊，以吾之精血，遵循古老的盟约，" +
-				"倾听吾之耳语，打破时空的界限。" +
-				"吾以契约呼唤以血脉请求以吾身为器以吾灵魂为贡献籍远古精灵之语言，" +
-				"诵念汝之真名：亚马逊听吾之命，为吾而战！" +
-				"楼下的亚马逊，告诉他们海外代购最高返多少？",
-				"以前不懂，看帖总是不回。一直没升级和增加经验，" +
-				"现在我明白了。反正回帖15字就可以升级，还可以赚经验。" +
-				"升级又需要经验，于是我把这句话复制下来。遇贴就回，捞完就闪",
-				"是谁把光阴剪成了烟花，一瞬间，看尽繁华。一树繁花，只一眼，便是天涯。",
-				"前排围观！！",
-				"火前留名！！"
-				};
-		int num=r.nextInt(random.length);
+		int num=r.nextInt(randomStr.length);
 		//System.out.println(random[num]+"                   test:"+num);
-		return random[num];
+		return randomStr[num];
 	}
 	
 	public static void main(String[] args) {

@@ -100,7 +100,7 @@ public class RequestMdjNuTask extends AbstrctTask {
 	public void inin() throws Exception{
 		String jobName = this.getClass().getSimpleName();
 		String jobGroup = this.getClass().getPackage().getName();
-		super.quartz.addScheduleJob(jobName, jobGroup, this, "0 0/10 * * * ?");
+		super.quartz.addScheduleJob(jobName, jobGroup, this, "0 0/20 * * * ?");
 	}
 	
 	@PreDestroy

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 使用sax解析，object节点转化成map对象，list节点转化成list对象，其余转化成String -->
+<!--  -->
+<xml>
+	<object name="TieBaLiuYan">
+		<leaveMessage1>nihasssgffffffffo</leaveMessage1>
+		<leaveMessage2>hehesssddd</leaveMessage2>
+		<leaveMessage3>diaozhatiand</leaveMessage3>
+	</object>
+</xml>

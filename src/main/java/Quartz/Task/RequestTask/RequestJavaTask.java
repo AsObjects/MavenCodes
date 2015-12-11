@@ -103,7 +103,7 @@ public class RequestJavaTask extends AbstrctTask {
 	public void inin() throws Exception{
 		String jobName = this.getClass().getSimpleName();
 		String jobGroup = this.getClass().getPackage().getName();
-		super.quartz.addScheduleJob(jobName, jobGroup, this, "0 0/3 * * * ?");
+		super.quartz.addScheduleJob(jobName, jobGroup, this, "0 0/30 * * * ?");
 	}
 	
 	@PreDestroy
