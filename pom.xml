@@ -167,6 +167,7 @@
 			<version>1.4</version>
 		</dependency>
 		<!-- 邮件组件 -->
+		<!-- 
 		<dependency>
 		  <groupId>com.component</groupId>
 		  <artifactId>component-email</artifactId>
@@ -184,5 +185,6 @@
 		  <version>1.0.4-SNAPSHOT</version>
 		  <classifier>javadoc</classifier>
 		</dependency>
+		 -->
   </dependencies>
 </project>

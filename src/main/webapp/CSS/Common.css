@@ -1,0 +1,89 @@
+body {
+	padding: 0px;
+    margin: 0px;	
+}
+
+/* Í· */
+.head {
+    width: 100%;
+    height: 70px;
+    z-index: 10;
+    background-color: #000000;
+    color: #ffffff !important;
+}
+
+/* LOGO */
+.header_logo {
+	float: left;
+    background: url("http://www.helperok.cn/static/images/index/LOGO.png") center center no-repeat;
+    width: 25%;
+    height: 70px;
+    cursor: pointer;
+}
+
+/* µ¼º½²Ëµ¥ */
+.header_nav {
+    margin-right: 0%;
+    width: 70%;
+    height: 70px;
+    position: relative;
+}
+
+.header_nav ul {
+    margin: 0;
+    color: #000000;
+    list-style: none;
+    font-size: 16px;
+    margin-right: 5%;
+}
+
+.header_nav li {
+    text-align: center;
+    width: 85px;
+    height: 70px;
+    float: right;
+    margin-left: 5%;
+    cursor: pointer;
+    line-height: 70px;
+    color: #ffffff;
+}
+
+.colorful {
+    border-top: solid 5px #29BDAA;
+}
+
+#blank {
+    width: 10px;
+}
+
+#login {
+    margin-left: 0;
+}
+
+#register {
+    margin-left: 0;
+}
+
+.swipe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-top: solid 3px #29BDAA;
+    width: 85px;
+    height: 10px;
+    z-index: 100;
+}
+
+.pay {
+    height: 24px;
+    font-size: 12px;
+    line-height: 24px;
+    margin-top: 23px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -mz-border-radius: 3px;
+    background-color: #DA4A1E;
+}
+.keepRight{
+	float:right;
+}
