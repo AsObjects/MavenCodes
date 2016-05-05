@@ -4,9 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
-
-import Entity.User;
-import Service.ServiceImpl.UserService;
+import com.Service.ServiceImpl.UserService;
+import com.model.MccUser;
 
 @Component("TestFirstActiong")
 public class TestFirstActiong {
@@ -16,12 +15,10 @@ public class TestFirstActiong {
 	
 	public String execute() {
 		System.out.println("OK");
-		User user=new User();
+		MccUser user=new MccUser();
 		user.setPassWord("aaa");
 		user.setUserName("cc");
-		us.regist(user);
 		user.setId(5);
-		us.deleteUser(user);
 		return "success";
 	}
 }

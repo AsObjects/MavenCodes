@@ -11,18 +11,18 @@
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">  
   
-   <!-- 公共组件要先载，否则空指针，这里不使用注解 -->
+   <!-- 公共组件要先加载，否则空指针，这里不使用注解 -->
    <!-- 获取bean的工厂-->
    	<bean id="SpringBeanFactory" class="ConfigBean.SpringBeanFactory">
 	</bean>
 	
 	<!-- 注入配置文件 -->
 	<bean id="getSystemParam" class="SystemParam.Properties.GetSystemParam">
-	 	<property name="fileName" value="/Conf/setting.properties" />
+	 	<property name="fileName" value="/conf/setting.properties" />
 	</bean>
 	
 	<!-- 注入xml文件配置 -->
 	<bean id="xmlConfig" class="SystemParam.XmlConfig.XmlConfigImpl">
-	 	<property name="fileName" value="/WEB-INF/Conf/config.xml" />
+	 	<property name="fileName" value="/WEB-INF/conf/config.xml" />
 	</bean>
 </beans> 
